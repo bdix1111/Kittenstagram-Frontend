@@ -17,19 +17,18 @@ document.addEventListener("DOMContentLoaded", function() {
       postsContainer.innerHTML += `
       <div class="ui card">
         <div class="content">
-          <div class="right floated meta">14h</div>
-          <img class="ui avatar image" src="${cat.media}"> Elliot
+          <h2>${cat.name}</h2>
         </div>
         <div class="image">
-          <img>
+          <img src=${cat.media}>
         </div>
         <div class="content">
           <span class="right floated">
             <i class="heart outline like icon"></i>
-            17 likes
+            ${cat.likes.length} Likes
           </span>
           <i class="comment icon"></i>
-          3 comments
+          ${cat.comments.length} comments
         </div>
         <div class="extra content">
           <div class="ui large transparent left icon input">
