@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const postsContainer = document.getElementById('posts-container')
   const commentViewerBtn = document.getElementById('comment-viewer-btn')
   const likeButton = document.getElementById('like-button')
-  const newCommentInput = document.getElementById('new-comment-input')
+  // const newCommentInput = document.getElementById('new-comment-input')
   // const likeCount = document.getElementById('like-count')
 
 
@@ -31,20 +31,20 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
         <div class="content">
           <span class="right floated">
-            <i class="heart outline like icon"></i>
+            <i class="heart outline icon"></i>
             <span id="like-count-${cat.id}">${cat.likes.length} Likes</span>
           </span>
-          <span id="comment-viewer-btn" data-id=${cat.id}>
-          <i class="comment icon"></i>
-          ${cat.comments.length} comments
+          <span>
+            <i class="comment icon"></i>
+            <span id="comment-count-${cat.id}" data-id=${cat.id}>${cat.comments.length} comments</span>
           </span>
         </div>
         <div class="extra content">
           <div class="ui large transparent left icon input">
             <span>
-              <i id="like-button" class="heart outline icon" data-id=${cat.id}></i>
+              <i id="like-button-${cat.id}" class="heart like icon" data-id=${cat.id}></i>
             </span>
-            <input id="new-comment-input" type="text" data-id=${cat.id} placeholder="Add Comment...">
+            <input id="new-comment-input-${cat.id}" data-id="${cat.id}" type="text" placeholder="Add Comment...">
           </div>
         </div>
       </div>
@@ -58,8 +58,10 @@ document.addEventListener("DOMContentLoaded", function() {
   getAllCats();
 
   postsContainer.addEventListener('click', function(e) {
-    if(e.target.id === 'like-button') {
-      const postId = parseInt(e.target.dataset.id)
+    console.log(e.target.id, e.target.dataset.id)
+    const postId = parseInt(e.target.dataset.id)
+
+    if(e.target.id === `like-button-${postId}`) {
       let likeCount = document.getElementById(`like-count-${postId}`)
       let likeNum = parseInt(likeCount.innerText)
       ++likeNum
@@ -67,15 +69,35 @@ document.addEventListener("DOMContentLoaded", function() {
       //conCATenation
 
       addLikeToPost(postId)
-    } else if (e.target.id === 'comment-viewer-btn') {
-      console.log('clicked', e.target.dataset.id)
+
+    } else if (e.target.id === `comment-count-${postId}`) {
+      console.log('clicked this fucking thing
+      
+
     }
+  })
+
+
+  postsContainer.addEventListener('keypress', function (e) {
+      const postId = parseInt(e.target.dataset.id)
+      const newCommentInput = document.getElementById(`new-comment-input-${postId}`)
+      const newComment = newCommentInput.value
+
+      if (e.keyCode === 13 && newComment !== "") {
+
+        let commentCount = document.getElementById(`comment-count-${postId}`)
+        let commentNum = parseInt(commentCount.innerText)
+        ++commentNum
+        commentCount.innerText = commentNum + ' comments' //conCATenate dat ish
+
+        addCommentToPost(postId, newComment)
+        newCommentInput.value = ""
+      }
   })
 
 
 
   function addLikeToPost(postId) {
-    console.log(postId)
     fetch("http://localhost:3000/api/v1/likes", {
         method: 'POST',
         headers: {
@@ -85,7 +107,20 @@ document.addEventListener("DOMContentLoaded", function() {
           post_id: postId
         })
       }).then(res => res.json())
-      .then(console.log('like added'))
+  }
+
+
+  function addCommentToPost(postId, newComment) {
+    fetch("http://localhost:3000/api/v1/comments", {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          post_id: postId,
+          content: newComment
+        })
+    }).then(res => res.json)
   }
 
 
