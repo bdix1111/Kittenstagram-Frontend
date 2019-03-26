@@ -61,69 +61,78 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log(e.target.id, e.target.dataset.id)
     const postId = parseInt(e.target.dataset.id)
 
-    if(e.target.id === `like-button-${postId}`) {
+    if (e.target.id === `like-button-${postId}`) {
       let likeCount = document.getElementById(`like-count-${postId}`)
       let likeNum = parseInt(likeCount.innerText)
-      ++likeNum
+        ++likeNum
       likeCount.innerText = likeNum + ' Likes'
       //conCATenation
 
       addLikeToPost(postId)
 
     } else if (e.target.id === `comment-count-${postId}`) {
-      console.log('clicked this fucking thing
-      
 
+      getPost(postId).then(post => renderComments(post))
     }
   })
 
 
-  postsContainer.addEventListener('keypress', function (e) {
-      const postId = parseInt(e.target.dataset.id)
-      const newCommentInput = document.getElementById(`new-comment-input-${postId}`)
-      const newComment = newCommentInput.value
+  postsContainer.addEventListener('keypress', function(e) {
+    const postId = parseInt(e.target.dataset.id)
+    const newCommentInput = document.getElementById(`new-comment-input-${postId}`)
+    const newComment = newCommentInput.value
 
-      if (e.keyCode === 13 && newComment !== "") {
+    if (e.keyCode === 13 && newComment !== "") {
 
-        let commentCount = document.getElementById(`comment-count-${postId}`)
-        let commentNum = parseInt(commentCount.innerText)
+      let commentCount = document.getElementById(`comment-count-${postId}`)
+      let commentNum = parseInt(commentCount.innerText)
         ++commentNum
-        commentCount.innerText = commentNum + ' comments' //conCATenate dat ish
+      commentCount.innerText = commentNum + ' comments' //conCATenate dat ish
 
-        addCommentToPost(postId, newComment)
-        newCommentInput.value = ""
-      }
+      addCommentToPost(postId, newComment)
+      newCommentInput.value = ""
+    }
   })
 
 
 
   function addLikeToPost(postId) {
     fetch("http://localhost:3000/api/v1/likes", {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          post_id: postId
-        })
-      }).then(res => res.json())
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        post_id: postId
+      })
+    }).then(res => res.json())
   }
 
 
   function addCommentToPost(postId, newComment) {
     fetch("http://localhost:3000/api/v1/comments", {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          post_id: postId,
-          content: newComment
-        })
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        post_id: postId,
+        content: newComment
+      })
     }).then(res => res.json)
   }
 
+  function getPost(postId) {
+    return fetch(`http://localhost:3000/api/v1/posts/${postId}`)
+      .then(res => res.json())
+      // .then(post => console.log(post.comments))
+  }
 
+  function renderComments(post) {
+    post.comments.forEach(function(comment) {
+      postsContainer.innerHTML += `${comment.content}`
+    })
+  }
 
 
 })
