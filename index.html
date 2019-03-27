@@ -19,9 +19,44 @@
 
     <h1>Welcome to KITTENSTAGRAM 😻</h1>
 
+    <!-- Trigger/Open The Modal -->
+    <button id="formModalBtn">Add a Cat!</button>
+
     <div id="posts-container">
 
     </div>
+
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+          <div class="form-container">
+            <form class="ui form" id="new-cat-form">
+              <h2>Add a Feline</h2>
+              <div class="field">
+                <label>Name</label>
+                <input type="text" name="name" placeholder="Cat's Name" id="cat-name">
+              </div>
+              <div class="field">
+                <label>Media URL</label>
+                <input type="text" name="media" placeholder="Image/Video URL" id="cat-image">
+              </div>
+              <div class="field">
+                <label>Caption</label>
+                <input type="text" name="caption" placeholder="Caption" id="post-description">
+              </div>
+              <button class="ui button" type="submit" id='new-post-submit'>Create Cat</button>
+            </form>
+          </div>
+      </div>
+    </div>
+
+
+
+
+
 
 
   </body>

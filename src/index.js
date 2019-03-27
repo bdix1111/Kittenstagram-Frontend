@@ -5,8 +5,27 @@ document.addEventListener("DOMContentLoaded", function() {
   const postsContainer = document.getElementById('posts-container')
   const commentViewerBtn = document.getElementById('comment-viewer-btn')
   const likeButton = document.getElementById('like-button')
+  const submitButton = document.getElementById('new-post-submit')
+  const newCatForm = document.getElementById("new-cat-form")
+  const modal = document.getElementById('myModal')
+  const modalBtn = document.getElementById("formModalBtn")
+  const span = document.getElementsByClassName("close")[0]
   // const newCommentInput = document.getElementById('new-comment-input')
   // const likeCount = document.getElementById('like-count')
+
+  modalBtn.onclick = function() {
+    modal.style.display = "block";
+  }
+
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
 
 
   function getAllCats() {
@@ -33,6 +52,9 @@ document.addEventListener("DOMContentLoaded", function() {
               </div>
               <div class="image">
                 <img src=${cat.media}>
+              </div>
+              <div class="content"
+                <p>${cat.caption}</p>
               </div>
               <div class="content">
                 <span class="right floated">
@@ -109,17 +131,43 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (e.keyCode === 13 && newComment !== "") {
 
+      const commentCard = document.getElementById(`cat-card-back-${postId}`)
       let commentCount = document.getElementById(`comment-count-${postId}`)
       let commentNum = parseInt(commentCount.innerText)
         ++commentNum
       commentCount.innerText = commentNum + ' comments' //conCATenate dat ish
-
+      commentCard.innerHTML += `
+        <p>${newComment}</p>
+      `
       addCommentToPost(postId, newComment)
       newCommentInput.value = ""
     }
   })
 
+  function createCat(catName, catMedia, catCaption) {
+    fetch("http://localhost:3000/api/v1/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: catName,
+        media: catMedia,
+        caption: catCaption
+      })
+    }).then(res => res.json())
+      .then(getAllCats)
+  }
 
+  submitButton.addEventListener('click', function(e) {
+    e.preventDefault()
+    const catName = document.getElementById('cat-name').value
+    const catMedia = document.getElementById('cat-image').value
+    const catCaption = document.getElementById('post-description').value
+
+    createCat(catName, catMedia, catCaption)
+    newCatForm.reset()
+  })
 
   function addLikeToPost(postId) {
     fetch("http://localhost:3000/api/v1/likes", {
