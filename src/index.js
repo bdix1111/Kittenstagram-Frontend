@@ -21,34 +21,49 @@ document.addEventListener("DOMContentLoaded", function() {
     postsContainer.innerHTML = ''
 
     cats.forEach(function(cat) {
+
       postsContainer.innerHTML += `
-      <div class="ui card">
-        <div class="content">
-          <h2>${cat.name}</h2>
-        </div>
-        <div class="image">
-          <img src=${cat.media}>
-        </div>
-        <div class="content">
-          <span class="right floated">
-            <i class="heart outline icon"></i>
-            <span id="like-count-${cat.id}">${cat.likes.length} Likes</span>
-          </span>
-          <span>
-            <i class="comment icon"></i>
-            <span id="comment-count-${cat.id}" data-id=${cat.id}>${cat.comments.length} comments</span>
-          </span>
-        </div>
-        <div class="extra content">
-          <div class="ui large transparent left icon input">
-            <span>
-              <i id="like-button-${cat.id}" class="heart like icon" data-id=${cat.id}></i>
-            </span>
-            <input id="new-comment-input-${cat.id}" data-id="${cat.id}" type="text" placeholder="Add Comment...">
+      <div class="flip-card" id="cat-card-${cat.id}">
+        <div class="flip-card-inner">
+
+          <div class="flip-card-front" id="cat-card-front-${cat.id}">
+            <div class="ui card">
+              <div class="content">
+                <h2>${cat.name}</h2>
+              </div>
+              <div class="image">
+                <img src=${cat.media}>
+              </div>
+              <div class="content">
+                <span class="right floated">
+                  <i class="heart outline icon"></i>
+                  <span id="like-count-${cat.id}">${cat.likes.length} Likes</span>
+                </span>
+                <span>
+                  <i class="comment icon"></i>
+                  <span id="comment-count-${cat.id}" data-id=${cat.id}>${cat.comments.length} comments</span>
+                </span>
+              </div>
+              <div class="extra content">
+                <div class="ui large transparent left icon input">
+                  <span>
+                    <i id="like-button-${cat.id}" class="heart like icon" data-id=${cat.id}></i>
+                  </span>
+                  <input id="new-comment-input-${cat.id}" data-id="${cat.id}" type="text" placeholder="Add Comment...">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-back" id="cat-card-back-${cat.id}" data-id=${cat.id}>
+            <br>
+            <h2>${cat.name}</h2>
+            <br>
+            ${cat.comments.map(function(comment) {
+              return `<p>${comment.content}</p>`
+            }).join("")}
           </div>
         </div>
       </div>
-
       `
     })
 
@@ -58,8 +73,9 @@ document.addEventListener("DOMContentLoaded", function() {
   getAllCats();
 
   postsContainer.addEventListener('click', function(e) {
-    console.log(e.target.id, e.target.dataset.id)
+    console.log('clicked', e.target.id)
     const postId = parseInt(e.target.dataset.id)
+    console.log(postId);
 
     if (e.target.id === `like-button-${postId}`) {
       let likeCount = document.getElementById(`like-count-${postId}`)
@@ -71,11 +87,20 @@ document.addEventListener("DOMContentLoaded", function() {
       addLikeToPost(postId)
 
     } else if (e.target.id === `comment-count-${postId}`) {
+      const commentClicker = document.getElementById(`cat-card-${postId}`)
+      const cardFront = document.getElementById(`cat-card-front-${postId}`)
 
-      getPost(postId).then(post => renderComments(post))
+      commentClicker.classList.toggle("flipper")
+      // cardFront.style.display = "none"
+      // getPost(postId).then(post => renderComments(post))
+    }
+    if (e.target.id === `cat-card-back-${postId}`) {
+      console.log("clicked backside")
+      const commentUnClicker = document.getElementById(`cat-card-${postId}`)
+
+      commentUnClicker.classList.toggle("flipper")
     }
   })
-
 
   postsContainer.addEventListener('keypress', function(e) {
     const postId = parseInt(e.target.dataset.id)
