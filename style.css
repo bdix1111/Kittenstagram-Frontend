@@ -4,20 +4,22 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
+  height: 200px;
 }
 
 .flip-card {
   background-color: transparent;
   width: 280px;
   height: 395px;
-  border: 1px solid #f1f1f1;
+  /* border: 1px solid #f1f1f1; */
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
   text-align: center;
 }
 
 .container {
-  -webkit-align-content: center;
-  margin-left: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .flip-card-inner {
@@ -33,6 +35,11 @@ body {
 .image {
   height: 25vh;
 } */
+
+.ui.card, .ui.cards>.card {
+  height: 120%;
+  width: 300%;
+}
 
 /* We want this not on flip card hover, but on our comment click*/
 /* .flip-card:hover .flip-card-inner {
@@ -56,12 +63,17 @@ body {
 }
 
 .flip-card-back {
-  background-color: #35cccc;
+  background-color: #F0F7EE;
   color: black;
   transform: rotateY(180deg);
   height: 100%;
   border: outset;
   border-width: medium;
+  border-color: #C4D7F2;
+}
+
+.flip-card-back h2 {
+  color: #254151;
 }
 
 .form-container {
@@ -77,11 +89,11 @@ body {
 .scroll {
   overflow: scroll;
 }
-
+/*
 .ui .card {
   width: inherit;
   height: inherit;
-}
+} */
 
 /* The Modal (background) */
 .modal {
@@ -119,4 +131,28 @@ body {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.ui.card, .ui.cards>.card {
+  background-color: #F0F7EE;
+  width: inherit;
+  height: inherit;
+}
+
+.header {
+  font-family: 'Pacifico', cursive;
+}
+
+.ui.inverted.segment, .ui.primary.inverted.segment {
+  background: rgba(51, 62, 72, 0.9);
+  height: 60px;
+  align-items: right;
+  align-content: right;
+  position: inherit;
+  /* margin-left: 35%; */
+}
+
+.ui.secondary.inverted.menu {
+  align-content: right;
+  position: fixed;
 }
