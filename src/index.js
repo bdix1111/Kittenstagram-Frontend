@@ -174,6 +174,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const catMedia = document.getElementById('cat-image').value
     const catCaption = document.getElementById('post-description').value
 
+    modal.style.display = "none";
     createCat(catName, catMedia, catCaption)
     newCatForm.reset()
   })
