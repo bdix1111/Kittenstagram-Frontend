@@ -72,8 +72,13 @@ body {
   border-color: #C4D7F2;
 }
 
-.flip-card-back h2 {
+.flip-card-back h1 {
   color: #254151;
+  font-family: 'Shadows Into Light', cursive;
+}
+
+.flip-card-front h1 {
+  font-family: 'Shadows Into Light', cursive;
 }
 
 .form-container {
@@ -140,7 +145,7 @@ body {
 }
 
 .header {
-  font-family: 'Pacifico', cursive;
+  font-family: 'Indie Flower', cursive;
 }
 
 .ui.inverted.segment, .ui.primary.inverted.segment {
@@ -155,4 +160,9 @@ body {
 .ui.secondary.inverted.menu {
   align-content: right;
   position: fixed;
+}
+
+.cat-butt {
+  height: 50px;
+  width: 50px;
 }

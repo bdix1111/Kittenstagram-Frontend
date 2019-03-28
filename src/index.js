@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
           <div class="flip-card-front" id="cat-card-front-${cat.id}">
             <div class="ui card">
               <div class="content">
-                <h2>${cat.name}</h2>
+                <h1>${cat.name}</h1>
               </div>
               <div class="image">
                 <img src=${cat.media}>
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
           </div>
           <div class="flip-card-back" id="cat-card-back-${cat.id}" data-id=${cat.id}>
             <br>
-            <h2>${cat.name}</h2>
+            <h1>${cat.name}</h1>
             <br>
             ${cat.comments.map(function(comment) {
               return `<p>${comment.content}</p>`
