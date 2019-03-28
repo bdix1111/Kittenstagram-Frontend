@@ -7,12 +7,14 @@ document.addEventListener("DOMContentLoaded", function() {
   const likeButton = document.getElementById('like-button')
   const submitButton = document.getElementById('new-post-submit')
   const newCatForm = document.getElementById("new-cat-form")
+
   const modal = document.getElementById('myModal')
   const modalBtn = document.getElementById("formModalBtn")
   const span = document.getElementsByClassName("close")[0]
   // const newCommentInput = document.getElementById('new-comment-input')
   // const likeCount = document.getElementById('like-count')
 
+  //modal functionality
   modalBtn.onclick = function() {
     modal.style.display = "block";
   }
@@ -41,7 +43,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     cats.forEach(function(cat) {
 
-      postsContainer.innerHTML += `
+      postsContainer.innerHTML +=
+      `
       <div class="flip-card" id="cat-card-${cat.id}">
         <div class="flip-card-inner">
 
@@ -86,6 +89,8 @@ document.addEventListener("DOMContentLoaded", function() {
           </div>
         </div>
       </div>
+      <br>
+      <br>
       `
     })
 
@@ -111,16 +116,20 @@ document.addEventListener("DOMContentLoaded", function() {
     } else if (e.target.id === `comment-count-${postId}`) {
       const commentClicker = document.getElementById(`cat-card-${postId}`)
       const cardFront = document.getElementById(`cat-card-front-${postId}`)
+      const cardBack = document.getElementById(`cat-card-back-${postId}`)
 
       commentClicker.classList.toggle("flipper")
+      cardBack.classList.toggle("scroll")
       // cardFront.style.display = "none"
       // getPost(postId).then(post => renderComments(post))
     }
     if (e.target.id === `cat-card-back-${postId}`) {
       console.log("clicked backside")
       const commentUnClicker = document.getElementById(`cat-card-${postId}`)
+      const cardBack = document.getElementById(`cat-card-back-${postId}`)
 
       commentUnClicker.classList.toggle("flipper")
+      cardBack.classList.toggle("scroll")
     }
   })
 
@@ -146,16 +155,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function createCat(catName, catMedia, catCaption) {
     fetch("http://localhost:3000/api/v1/posts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        name: catName,
-        media: catMedia,
-        caption: catCaption
-      })
-    }).then(res => res.json())
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: catName,
+          media: catMedia,
+          caption: catCaption
+        })
+      }).then(res => res.json())
       .then(getAllCats)
   }
 
@@ -198,7 +207,7 @@ document.addEventListener("DOMContentLoaded", function() {
   function getPost(postId) {
     return fetch(`http://localhost:3000/api/v1/posts/${postId}`)
       .then(res => res.json())
-      // .then(post => console.log(post.comments))
+    // .then(post => console.log(post.comments))
   }
 
   function renderComments(post) {
