@@ -5,7 +5,9 @@ nav {
   margin: 0 auto;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  padding-left: 3%;
+  padding-right: 1%;
 }
 
 button{
@@ -15,6 +17,11 @@ button{
   padding-top: 11%;
   font-size: 150%;
   font-weight: bolder;
+}
+
+#posts-container {
+  padding-top: 11%;
+  padding-left: 55%;
 }
 
 .fixed-nav nav {
@@ -45,12 +52,6 @@ body {
   text-align: center;
 }
 
-.posts-container {
-  margin-top:100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
 
 .flip-card-inner {
   position: relative;

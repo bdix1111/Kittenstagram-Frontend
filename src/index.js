@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-  console.log("this page has loaded with HTML annnnnd Javascript")
+  document.addEventListener('click', (e) => {
+    console.log("clicked", e.target.id)
+  })
 
   const nav = document.querySelector('#navigation');
   const navTop = nav.offsetTop;
@@ -45,7 +47,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
   window.addEventListener('scroll', () => {
     stickyNavigation();
-    // console.log("nav", document.body.classList)
   });
 
 
@@ -60,8 +61,9 @@ document.addEventListener("DOMContentLoaded", function() {
   function renderAllCats(cats) {
     postsContainer.innerHTML = ''
 
+    cats.sort((a,b) => b.id - a.id)
     cats.forEach(function(cat) {
-
+      // console.log(cat.created_at)
       postsContainer.innerHTML +=
       `
       <div class="flip-card" id="cat-card-${cat.id}">
