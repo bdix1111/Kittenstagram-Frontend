@@ -8,6 +8,7 @@ nav {
   justify-content: space-between;
   padding-left: 3%;
   padding-right: 1%;
+  color: #072535;
 }
 
 button{
@@ -37,6 +38,7 @@ body {
   background-attachment: fixed;
   background-position: center;
   height: 200px;
+  color: #072535;
 }
 
 /* .welcome {
