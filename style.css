@@ -9,7 +9,12 @@ nav {
 }
 
 button{
-  background-color: aquamarine;
+  background-color: #9FB1BC;
+  border-radius: .5em;
+  margin-top: 30%;
+  padding-top: 11%;
+  font-size: 150%;
+  font-weight: bolder;
 }
 
 .fixed-nav nav {

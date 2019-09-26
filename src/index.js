@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const newCatForm = document.getElementById("new-cat-form")
 
   const modal = document.getElementById('myModal')
-  const modalBtn = document.getElementById("formModalBtn")
+  const modalBtn = document.getElementById("formModalBtn add-cat-button")
   const span = document.getElementsByClassName("close")[0]
 
   // const newCommentInput = document.getElementById('new-comment-input')
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   window.addEventListener('scroll', () => {
     stickyNavigation();
-    console.log("nav", document.body.classList)
+    // console.log("nav", document.body.classList)
   });
 
 
