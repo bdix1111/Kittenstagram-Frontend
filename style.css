@@ -1,3 +1,23 @@
+nav {
+  width: 100%;
+  background-color: #D3D0CB;
+  /* text-align: center; */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+button{
+  background-color: aquamarine;
+}
+
+.fixed-nav nav {
+  position: fixed;
+  top:0;
+  z-index: 1;
+}
+
 body {
   /* background-color: teal; */
   background-image: url("https://i.pinimg.com/originals/36/96/8c/36968c6cce7610f295d01bb38bbf213b.jpg");
@@ -6,6 +26,10 @@ body {
   background-position: center;
   height: 200px;
 }
+
+/* .welcome {
+  vertical-align: middle;
+} */
 
 .flip-card {
   background-color: transparent;
@@ -16,10 +40,11 @@ body {
   text-align: center;
 }
 
-.container {
+.posts-container {
+  margin-top:100px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
 }
 
 .flip-card-inner {
@@ -146,6 +171,8 @@ body {
 
 .header {
   font-family: 'Indie Flower', cursive;
+  vertical-align: middle;
+  font-size: 600%;
 }
 
 .ui.inverted.segment, .ui.primary.inverted.segment {

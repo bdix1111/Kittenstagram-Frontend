@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
   console.log("this page has loaded with HTML annnnnd Javascript")
 
+  const nav = document.querySelector('#navigation');
+  const navTop = nav.offsetTop;
+
   const postsContainer = document.getElementById('posts-container')
   const commentViewerBtn = document.getElementById('comment-viewer-btn')
   const likeButton = document.getElementById('like-button')
@@ -11,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const modal = document.getElementById('myModal')
   const modalBtn = document.getElementById("formModalBtn")
   const span = document.getElementsByClassName("close")[0]
+
   // const newCommentInput = document.getElementById('new-comment-input')
   // const likeCount = document.getElementById('like-count')
 
@@ -28,6 +32,21 @@ document.addEventListener("DOMContentLoaded", function() {
       modal.style.display = "none";
     }
   }
+
+  function stickyNavigation() {
+    if (window.scrollY >= navTop) {
+      // document.body.style.paddingTop = nav.offsetHeight + 'px';
+      document.body.classList.add('fixed-nav');
+    } else {
+      document.body.style.paddingTop = 0;
+      document.body.classList.remove('fixed-nav');
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    stickyNavigation();
+    console.log("nav", document.body.classList)
+  });
 
 
   function getAllCats() {
