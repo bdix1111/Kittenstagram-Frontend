@@ -1,8 +1,9 @@
+
 document.addEventListener("DOMContentLoaded", function() {
 
-  document.addEventListener('click', (e) => {
-    console.log("clicked", e.target.id)
-  })
+  // document.addEventListener('click', (e) => {
+  //   console.log("clicked", e.target.id)
+  // })
 
   const nav = document.querySelector('#navigation');
   const navTop = nav.offsetTop;
@@ -51,9 +52,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
   function getAllCats() {
+    console.log("hey start")
     fetch("http://localhost:3000/api/v1/posts")
       .then(res => res.json())
       .then(cats => {
+        console.log("hey", cats)
+        // debugger
         renderAllCats(cats)
       })
   }
@@ -63,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     cats.sort((a,b) => b.id - a.id)
     cats.forEach(function(cat) {
-      // console.log(cat.created_at)
+      // debugger
       postsContainer.innerHTML +=
       `
       <div class="flip-card" id="cat-card-${cat.id}">
@@ -75,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <h1>${cat.name}</h1>
               </div>
               <div class="image">
-                <img src=${cat.media}>
+                <img src=${cat.media_url}>
               </div>
               <div class="content"
                 <p>${cat.caption}</p>
@@ -175,24 +179,25 @@ document.addEventListener("DOMContentLoaded", function() {
   })
 
   function createCat(catName, catMedia, catCaption) {
+    let data = new FormData()
+    data.append('name', catName)
+    data.append('media', catMedia)
+    data.append('caption', catCaption)
     fetch("http://localhost:3000/api/v1/posts", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          name: catName,
-          media: catMedia,
-          caption: catCaption
-        })
+        // headers: {
+        //   "Content-Type": "multipart/form-data"
+        // },
+        body: data
       }).then(res => res.json())
       .then(getAllCats)
   }
 
   submitButton.addEventListener('click', function(e) {
     e.preventDefault()
+    console.log(document.getElementById('cat-media').files[0]);
     const catName = document.getElementById('cat-name').value
-    const catMedia = document.getElementById('cat-image').value
+    const catMedia = document.getElementById('cat-media').files[0]
     const catCaption = document.getElementById('post-description').value
 
     modal.style.display = "none";
