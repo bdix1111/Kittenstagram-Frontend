@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <h1>${cat.name}</h1>
               </div>
               <div class="image">
-                <img src=${cat.media_url}>
+                <img src='http://localhost:3000${cat.media_url}'>
               </div>
               <div class="content"
                 <p>${cat.caption}</p>
@@ -183,6 +183,7 @@ document.addEventListener("DOMContentLoaded", function() {
     data.append('name', catName)
     data.append('media', catMedia)
     data.append('caption', catCaption)
+    console.log(data);
     fetch("http://localhost:3000/api/v1/posts", {
         method: "POST",
         // headers: {
